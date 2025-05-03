@@ -1,0 +1,603 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 10,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        20
+      ],
+      "id": "c946002c-03a6-4c55-bf14-ae6bb7fe4b86",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "=Below data is my email.\n\nFrom : {{ $json.From }}\nSubject : {{ $json.Subject }}\nBody : {{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "개인",
+              "description": "Emails exchanged between individuals for personal communication, such as messages from friends, family, or acquaintances that are not related to work or commercial activity."
+            },
+            {
+              "category": "광고",
+              "description": "Promotional emails intended to market or sell products or services, including special offers, discounts, and sponsored content."
+            },
+            {
+              "category": "금융관련",
+              "description": "Emails related to financial services or transactions, including bank statements, credit card updates, investment reports, loan information, and insurance documents."
+            },
+            {
+              "category": "뉴스레터",
+              "description": "Periodic emails containing updates, articles, or curated content from a company, organization, or media outlet, usually sent to subscribers."
+            },
+            {
+              "category": "배송",
+              "description": "Emails that provide information about the shipping status of goods, including order confirmations, tracking numbers, and delivery updates."
+            },
+            {
+              "category": "쇼핑",
+              "description": "Emails related to online purchases and retail activities, such as product recommendations, shopping cart reminders, or order history (not including delivery or payment details)."
+            },
+            {
+              "category": "업무관련",
+              "description": "Emails related to professional or business communication, including project updates, meeting invitations, work-related discussions, or messages from colleagues and clients."
+            },
+            {
+              "category": "청구서/영수증",
+              "description": "Emails that contain billing information, payment confirmations, invoices, or receipts for goods and services."
+            },
+            {
+              "category": "알림",
+              "description": "Automated emails that notify the user about account activity, system alerts, reminders, or app-related updates, such as password changes, login alerts, calendar events, or service notifications."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        20
+      ],
+      "id": "07c3ce3d-b813-4c8f-ba26-04b833cb5053",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        260
+      ],
+      "id": "1605f9ec-1214-426a-a12f-d4eeac3009fc",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "i8HYE3f9Tf0Vb44I",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_2"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        -460
+      ],
+      "id": "de8aae39-3fcb-4c8a-87b2-bf46ba87f833",
+      "name": "개인",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_5776207914039441658"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        -340
+      ],
+      "id": "d94b19cf-71ad-4696-b03c-86f73788c8b3",
+      "name": "광고",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_4"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        -200
+      ],
+      "id": "598f1213-5ffc-4e08-9ab0-e74fb68fd6a4",
+      "name": "금융관련",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_1023786434465780386"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        600,
+        -80
+      ],
+      "id": "bd3db4da-f811-4fdb-9905-cdc9715d7616",
+      "name": "뉴스레터",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_4021056054675158817"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        40
+      ],
+      "id": "373f6987-c035-4885-924b-d1ebb827fc91",
+      "name": "배송",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_3"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        620,
+        160
+      ],
+      "id": "2c5a16a1-8ba6-48b0-874e-827b94d098c7",
+      "name": "쇼핑",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_5424500227693276433"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        260
+      ],
+      "id": "1cc11190-8fa8-4319-8d18-1dec170f2901",
+      "name": "업무관련",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_5"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        420
+      ],
+      "id": "7144f1c0-163d-4562-a845-8ad31edbdf6c",
+      "name": "청구서/영수증",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_18725965705763458"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        540
+      ],
+      "id": "4f604ef0-b1e6-4ffa-a0b7-461215e08836",
+      "name": "알림",
+      "webhookId": "ed98a330-6db6-4953-93ee-1168c81da210",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=아래는 이메일 내용이야, 간단하게 어떤 내용인지 내가 메신저에서 확인할 수 있도록 한줄 정도로 요약해줘, 항상 한국어로 요약해야 돼.\n\n{{ $('Gmail Trigger').item.json.snippet }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        840,
+        260
+      ],
+      "id": "11001c01-5f21-4d10-84fb-6b960ca0cb4b",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        840,
+        460
+      ],
+      "id": "299ace04-fa69-45e8-95cf-3b8fb8105582",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "i8HYE3f9Tf0Vb44I",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "",
+        "text": "=$ 메일 도착 $\n\n제목 : {{ $('Gmail Trigger').item.json.Subject }}\nFrom : {{ $('Gmail Trigger').item.json.From }}\n\n내용요약 : {{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1220,
+        260
+      ],
+      "id": "9f3d23a1-6b8c-432f-b81d-e37e079d42d7",
+      "name": "Telegram",
+      "webhookId": "885ffa80-6c66-4387-9704-68540e32b679",
+      "credentials": {
+        "telegramApi": {
+          "id": "vZInFLbsUtrptBlH",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        840,
+        60
+      ],
+      "id": "d1e76417-1244-45b0-86bb-b9a4922328d4",
+      "name": "메일읽음처리",
+      "webhookId": "dbb38b95-8ae9-449c-9d97-c7f079c535ae",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        -340
+      ],
+      "id": "9fd9e92a-bdb9-43b4-a866-25a7c7ce72fa",
+      "name": "메일삭제",
+      "webhookId": "1abd7285-e050-4d03-91a8-1e971f8b7b55",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BZM9Dha9O5fjz2vy",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "개인",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "광고",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "금융관련",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "뉴스레터",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "배송",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "쇼핑",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "업무관련",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "청구서/영수증",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "알림",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "광고": {
+      "main": [
+        [
+          {
+            "node": "메일삭제",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "금융관련": {
+      "main": [
+        []
+      ]
+    },
+    "뉴스레터": {
+      "main": [
+        [
+          {
+            "node": "메일읽음처리",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "쇼핑": {
+      "main": [
+        [
+          {
+            "node": "메일읽음처리",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "업무관련": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "청구서/영수증": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d420b7ad8aae9db8b7dd24099bd5da652cd9d392c6f496bd0cb6d6119d9a37cc"
+  }
+}
